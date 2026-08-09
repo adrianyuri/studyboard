@@ -5,20 +5,22 @@ export type Task = {
 };
 
 export type Group = {
-  id: string;
-  name: string;
-  subject: string;
+  groupId: string;
+  groupName: string;
+  subjectName: string;
   memberCount: number;
+  members: string[];
   tasks: Task[];
 };
 
 // Static mock data — will be replaced by real database queries in Week 5.
 const groups: Group[] = [
   {
-    id: "1",
-    name: "Data Structures Study Circle",
-    subject: "Computer Science",
+    groupId: "1",
+    groupName: "Algorithms Mastery Lab",
+    subjectName: "Mathematics",
     memberCount: 5,
+    members: ["yuri", "jericho", "kirt", "layla", "pijo"],
     tasks: [
       { id: "t1", title: "Review binary trees", done: false },
       { id: "t2", title: "Practice linked list problems", done: true },
@@ -26,20 +28,22 @@ const groups: Group[] = [
     ],
   },
   {
-    id: "2",
-    name: "Thermodynamics Crew",
-    subject: "Physics",
+    groupId: "2",
+    groupName: "Quantum Explorer Squad",
+    subjectName: "Engineering",
     memberCount: 3,
+    members: ["Frank", "Grace", "Henry"],
     tasks: [
       { id: "t4", title: "Solve entropy problem set", done: false },
       { id: "t5", title: "Read Chapter 4", done: false },
     ],
   },
   {
-    id: "3",
-    name: "Philippine History Readers",
-    subject: "History",
+    groupId: "3",
+    groupName: "World Literature Circle",
+    subjectName: "English",
     memberCount: 8,
+    members: ["Iris", "John", "Kate", "Leo", "Mia", "Noah", "Olivia", "Paul"],
     tasks: [
       { id: "t6", title: "Outline Chapter 2 discussion", done: true },
       { id: "t7", title: "Prepare debate points", done: false },
@@ -53,5 +57,10 @@ export function getGroups(): Group[] {
 }
 
 export function getGroupById(id: string): Group | undefined {
-  return groups.find((group) => group.id === id);
+  return groups.find((group) => group.groupId === id);
+}
+
+export function getTasksByGroup(id: string): Task[] {
+  const group = getGroupById(id);
+  return group ? group.tasks : [];
 }

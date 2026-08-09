@@ -10,7 +10,7 @@ export default function Home() {
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {groups.map((group) => (
           <GroupCard 
-          key={group.id} 
+          key={group.groupId}
           group={group} 
           />
         ))}
