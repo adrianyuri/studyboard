@@ -11,17 +11,17 @@ export default async function GroupDetailPage({
   const tasks = getTasksByGroup(id);
 
   if (!group) {
-    return <p className="text-purple-700">Group not found.</p>;
+return <p className="text-gray-700">Group not found.</p>;
   }
 
   return (
     <div>
-      <h1 className="text-3xl font-bold">{group.groupName}</h1>
-      <p className="mt-1 text-sm text-purple-800">{group.subjectName}</p>
-      <p className="mt-1 text-sm text-purple-900">{group.memberCount} members</p>
+      <h1 className="text-3xl font-bold">{group.name}</h1>
+<p className="mt-1 text-sm text-gray-800">{group.subject}</p>
+      <p className="mt-1 text-sm text-gray-900">{group.memberCount} members</p>
 
       <h2 className="mt-8 text-xl font-semibold">Members</h2>
-      <ul className="mt-4 list-inside list-disc space-y-1 text-purple-900">
+<ul className="mt-4 list-inside list-disc space-y-1 text-gray-900">
         {group.members.map((member) => (
           <li key={member}>{member}</li>
         ))}

@@ -5,9 +5,9 @@ export type Task = {
 };
 
 export type Group = {
-  groupId: string;
-  groupName: string;
-  subjectName: string;
+  id: string;
+  name: string;
+  subject: string;
   memberCount: number;
   members: string[];
   tasks: Task[];
@@ -16,11 +16,11 @@ export type Group = {
 // Static mock data — will be replaced by real database queries in Week 5.
 const groups: Group[] = [
   {
-    groupId: "1",
-    groupName: "Algorithms Mastery Lab",
-    subjectName: "Mathematics",
+    id: "1",
+    name: "Data Structures Study Circle",
+    subject: "Computer Science",
     memberCount: 5,
-    members: ["yuri", "jericho", "kirt", "layla", "pijo"],
+    members: ["yuri", "zywin", "dhan", "sam", "jimuel"],
     tasks: [
       { id: "t1", title: "Review binary trees", done: false },
       { id: "t2", title: "Practice linked list problems", done: true },
@@ -28,9 +28,9 @@ const groups: Group[] = [
     ],
   },
   {
-    groupId: "2",
-    groupName: "Quantum Explorer Squad",
-    subjectName: "Engineering",
+    id: "2",
+    name: "Thermodynamics Crew",
+    subject: "Physics",
     memberCount: 3,
     members: ["Frank", "Grace", "Henry"],
     tasks: [
@@ -39,9 +39,9 @@ const groups: Group[] = [
     ],
   },
   {
-    groupId: "3",
-    groupName: "World Literature Circle",
-    subjectName: "English",
+    id: "3",
+    name: "Philippine History Readers",
+    subject: "History",
     memberCount: 8,
     members: ["Iris", "John", "Kate", "Leo", "Mia", "Noah", "Olivia", "Paul"],
     tasks: [
@@ -57,7 +57,7 @@ export function getGroups(): Group[] {
 }
 
 export function getGroupById(id: string): Group | undefined {
-  return groups.find((group) => group.groupId === id);
+  return groups.find((group) => group.id === id);
 }
 
 export function getTasksByGroup(id: string): Task[] {
