@@ -12,7 +12,7 @@ export default function Navbar() {
     const pathname = usePathname();
     return(
         <nav className="flex items-center gap-6 border-b px-8 py-5">
-            <span className="font-bold text-lg">Studyboard</span>
+            <span className="font-bold text-blue-800 text-lg">Studyboard</span>
             <div className="flex gap-5">
                 {
                     links.map((link) => {
@@ -23,8 +23,8 @@ export default function Navbar() {
                               href={link.href}
                               className={
                                   isActive
-                                    ? "text-purple-700"
-                                    : "text-purple-700"
+                                    ? "text-blue-800"
+                                    : "text-blue-800"
                               }
                            >
                               {link.label}
