@@ -12,9 +12,15 @@
   --font-mono: var(--font-geist-mono);
 }
 
+<<<<<<< HEAD
 @media (prefers-color-scheme: Pink) {
   :root {
     --background: #840093;
+=======
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+>>>>>>> 0c3375f6842a5d8133b3181a3dd6fa29acc5852a
     --foreground: #ededed;
   }
 }
@@ -23,4 +29,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0c3375f6842a5d8133b3181a3dd6fa29acc5852a
