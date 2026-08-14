@@ -4,11 +4,11 @@ import { getGroupById, getTasksByGroup } from "@/lib/data";
 export default async function GroupDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
-  const { id } = await params;
-  const group = getGroupById(id);
-  const tasks = getTasksByGroup(id);
+  const { id } = params;
+  const group = await getGroupById(id);
+  const tasks = await getTasksByGroup(id);
 
   if (!group) {
     return <p className="text-purple-700">Group not found.</p>;

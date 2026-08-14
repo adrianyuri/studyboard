@@ -1,8 +1,8 @@
 import GroupCard from "@/components/GroupCard";
 import { getGroups } from "@/lib/data";
 
-export default function GroupsPage() {
-  const groups = getGroups();
+export default async function GroupsPage() {
+    const groups = await getGroups();
 
     return (
         <div>
