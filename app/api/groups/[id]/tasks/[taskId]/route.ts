@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getGroupById } from "@/lib/data";
+import { deleteTask, getGroupById, updateTask } from "@/lib/data.ts";
 
 type Params = { params: Promise<{ id: string; taskId: string }> };
 
 export async function PATCH(request: NextRequest, { params }: Params) {
   const { id, taskId } = await params;
-  const group = getGroupById(id);
+  const group = await getGroupById(id);
 
   if (!group) {
     return NextResponse.json({ error: "Group not found" }, { status: 404 });
@@ -18,26 +18,25 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   }
 
   const body = await request.json();
-  Object.assign(task, body);
+  const updated = await updateTask(id, taskId, body);
 
-  return NextResponse.json(task);
+  return NextResponse.json(updated);
 }
 
 export async function DELETE(request: NextRequest, { params }: Params) {
   const { id, taskId } = await params;
-  const group = getGroupById(id);
+  const group = await getGroupById(id);
 
   if (!group) {
     return NextResponse.json({ error: "Group not found" }, { status: 404 });
   }
 
-  const index = group.tasks.findIndex((t) => t.id === taskId);
-
-  if (index === -1) {
+  const task = group.tasks.find((t) => t.id === taskId);
+  if (!task) {
     return NextResponse.json({ error: "Task not found" }, { status: 404 });
   }
 
-  const [deleted] = group.tasks.splice(index, 1);
+  await deleteTask(id, taskId);
 
-  return NextResponse.json(deleted);
+  return NextResponse.json(task);
 }

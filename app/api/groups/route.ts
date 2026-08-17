@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getGroups, Group } from "@/lib/data";
+import { createGroup, getGroups } from "@/lib/data.ts";
 
 export async function GET() {
-  const groups = getGroups();
+  const groups = await getGroups();
   return NextResponse.json(groups);
 }
 
@@ -16,18 +16,11 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const groups = getGroups();
-
-  const newGroup: Group = {
-    id: String(Date.now()),
+  const newGroup = await createGroup({
     name: body.name,
     subject: body.subject,
-    memberCount: body.memberCount ?? 0,
-    members: body.members ?? [],
-    tasks: [],
-  };
-
-  groups.push(newGroup);
+    memberCount: body.memberCount ?? 1,
+  });
 
   return NextResponse.json(newGroup, { status: 201 });
 }

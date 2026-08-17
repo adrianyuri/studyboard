@@ -6,17 +6,23 @@ export type Task = {
   done: boolean;
 };
 
+export type Member = {
+  id: string;
+  name: string;
+};
+
 export type Group = {
   id: string;
   name: string;
   subject: string;
   memberCount: number;
+  members: Member[];
   tasks: Task[];
 };
 
 export async function getGroups(): Promise<Group[]>{
   return prisma.group.findMany({
-    include: {tasks: true},
+    include: { members: true, tasks: true },
     orderBy: {createdAt: "asc"}
   });
 }
@@ -24,7 +30,7 @@ export async function getGroups(): Promise<Group[]>{
 export async function getGroupById(id: string): Promise<Group | null> {
   return prisma.group.findUnique({
     where: { id },
-    include: { tasks: true },
+    include: { members: true, tasks: true },
   });
 }
 
@@ -45,18 +51,18 @@ export async function createGroup(input: NewGroupInput): Promise<Group> {
       subject: input.subject,
       memberCount: input.memberCount ?? 1,
     },
-    include: { tasks: true },
+    include: { members: true, tasks: true },
   });
 }
 
-  type UpdateGroupInput = Partial<Omit<Group, "id" | "tasks">>
+  type UpdateGroupInput = Partial<Omit<Group, "id" | "members" | "tasks">>
 
   export async function updateGroup(id: string, updates: UpdateGroupInput): Promise<Group | undefined> {
     try{
       return await prisma.group.update({
         where: { id },
         data: updates,
-        include: { tasks: true },
+        include: { members: true, tasks: true },
       });
     }catch{
       return undefined;

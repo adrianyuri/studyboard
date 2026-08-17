@@ -1,5 +1,5 @@
 import GroupCard from "@/components/GroupCard";
-import { getGroups } from "@/lib/data";
+import { getGroups } from "@/lib/data.ts";
 
 export default async function GroupsPage() {
     const groups = await getGroups();

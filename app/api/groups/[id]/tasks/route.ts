@@ -1,22 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getGroupById, Task } from "@/lib/data";
+import { createTask, getGroupById, getTasksByGroup } from "@/lib/data.ts";
 
 type Params = { params: Promise<{ id: string }> };
 
 export async function GET(request: NextRequest, { params }: Params) {
   const { id } = await params;
-  const group = getGroupById(id);
+  const group = await getGroupById(id);
 
   if (!group) {
     return NextResponse.json({ error: "Group not found" }, { status: 404 });
   }
 
-  return NextResponse.json(group.tasks);
+  return NextResponse.json(await getTasksByGroup(id));
 }
 
 export async function POST(request: NextRequest, { params }: Params) {
   const { id } = await params;
-  const group = getGroupById(id);
+  const group = await getGroupById(id);
 
   if (!group) {
     return NextResponse.json({ error: "Group not found" }, { status: 404 });
@@ -31,13 +31,7 @@ export async function POST(request: NextRequest, { params }: Params) {
     );
   }
 
-  const newTask: Task = {
-    id: `t${Date.now()}`,
-    title: body.title,
-    done: false,
-  };
-
-  group.tasks.push(newTask);
+  const newTask = await createTask(id, body.title);
 
   return NextResponse.json(newTask, { status: 201 });
 }
